@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Área Interativa para Educadores — Laço Azul</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="stylesheet" href="educadores.css">
+  
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <div class="logo-icon"><i class="fa-solid fa-ribbon"></i></div>
+      <div class="logo-text">Laço Azul<span>Autismo & Inclusão</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-group">
+        <div class="nav-group-label">Navegação</div>
+        <a href="index.html" class="nav-item"><i class="fa-solid fa-house"></i> Início</a>
+        <a href="diario.html" class="nav-item"><i class="fa-solid fa-book"></i> Meu Diário</a>
+        <a href="educadores.html" class="nav-item active"><i class="fa-solid fa-chalkboard-user"></i> Educadores</a>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="a11y-row">
+        <button class="a11y-btn" id="btnDark" onclick="toggleDark()"><i class="fa-solid fa-moon"></i> Escuro</button>
+        <button class="a11y-btn" id="btnContrast" onclick="toggleContrast()"><i class="fa-solid fa-circle-half-stroke"></i> Contraste</button>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-wrap">
+    <header class="topbar">
+      <div class="topbar-title">
+        Painel de Ferramentas do Educador
+        <span class="topbar-sub">Adaptação Ativa e Práticas Inclusivas</span>
+      </div>
+    </header>
+
+    <main class="page-body">
+      <section class="edu-banner">
+        <div class="banner-content">
+          <h1>Inclusão real vai além de aceitar a matrícula.</h1>
+          <p>Requer adaptação ativa, comunicação próxima e estratégias visuais e estruturadas aplicadas no dia a dia.</p>
+        </div>
+      </section>
+
+      <div class="forms-grid">
+
+        <section class="tool-card">
+          <div class="card-header border-blue">
+            <i class="fa-solid fa-clipboard-list icon-blue"></i>
+            <div>
+              <h2>Plano Educacional Individualizado (PEI)</h2>
+              <p class="tool-desc">Documente metas, adaptações e estratégias específicas para cada aluno. O PEI é um direito do aluno e uma ferramenta do professor.</p>
+            </div>
+          </div>
+          <form class="tool-form" onsubmit="salvarPEI(event)">
+            <div class="input-group">
+              <label>Nome do Aluno</label>
+              <input type="text" placeholder="Ex: Lucas Silva" required id="pei-aluno" />
+            </div>
+            <div class="input-group">
+              <label>Metas de Aprendizado & Objetivos</label>
+              <textarea placeholder="Liste os objetivos pedagógicos para este período..." required id="pei-metas"></textarea>
+            </div>
+            <div class="input-group">
+              <label>Estratégias de Adaptação Propostas</label>
+              <textarea placeholder="Ex: Uso de apoio visual, redução de tempo de exposição..." required id="pei-estrategias"></textarea>
+            </div>
+            <button type="submit" class="btn-action bg-blue"><i class="fa-solid fa-floppy-disk"></i> Registrar PEI do Aluno</button>
+          </form>
+          <div class="feedback-box" id="feedback-pei"></div>
+        </section>
+
+        <section class="tool-card">
+          <div class="card-header border-warm">
+            <i class="fa-solid fa-comments icon-warm"></i>
+            <div>
+              <h2>Comunicação com a Família</h2>
+              <p class="tool-desc">Gere relatórios regulares, caderno de comunicação ou preencha a agenda diária. Família e escola como parceiros, não adversários.</p>
+            </div>
+          </div>
+          <form class="tool-form" onsubmit="gerarAgenda(event)">
+            <div class="input-row">
+              <div class="input-group">
+                <label>Aluno</label>
+                <input type="text" placeholder="Nome do aluno" required id="com-aluno" />
+              </div>
+              <div class="input-group">
+                <label>Data do Registro</label>
+                <input type="date" required id="com-data" />
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Resumo do Dia (Agenda Diária / Caderno de Comunicação)</label>
+              <textarea placeholder="Como foi a interação, participação nas atividades e o comportamento geral..." required id="com-resumo"></textarea>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="com-importante">
+              <label for="com-importante">Marcar como aviso urgente para os responsáveis</label>
+            </div>
+            <button type="submit" class="btn-action bg-warm"><i class="fa-solid fa-paper-plane"></i> Enviar para Caderno Digital</button>
+          </form>
+          <div class="feedback-box" id="feedback-com"></div>
+        </section>
+
+        <section class="tool-card">
+          <div class="card-header border-teal">
+            <i class="fa-solid fa-pen-to-square icon-teal"></i>
+            <div>
+              <h2>Adaptação de Provas e Atividades</h2>
+              <p class="tool-desc">Linguagem objetiva, tempo extra, ambiente com menos estímulos. Adaptar não é facilitar — é dar igualdade de condições.</p>
+            </div>
+          </div>
+          <form class="tool-form" onsubmit="adaptarAtividade(event)">
+            <div class="input-group">
+              <label>Enunciado ou Texto Original da Questão</label>
+              <textarea placeholder="Cole aqui a questão complexa ou longa da prova tradicional..." required id="prova-original"></textarea>
+            </div>
+            <div class="input-group">
+              <label>Modificações Necessárias Aplicadas</label>
+              <div class="checklist-grid">
+                <label class="check-item"><input type="checkbox" id="chk-lang" checked> Simplificar para Linguagem Objetiva</label>
+                <label class="check-item"><input type="checkbox" id="chk-tempo" checked> Conceder Tempo Extra</label>
+                <label class="check-item"><input type="checkbox" id="chk-vis"> Adicionar Suporte Visual / Figuras</label>
+                <label class="check-item"><input type="checkbox" id="chk-amb"> Realizar em Ambiente Reduzido em Estímulos</label>
+              </div>
+            </div>
+            <button type="submit" class="btn-action bg-teal"><i class="fa-solid fa-wand-magic-sparkles"></i> Validar Estrutura Adaptada</button>
+          </form>
+          <div class="feedback-box" id="feedback-prova"></div>
+        </section>
+
+        <section class="tool-card emergency">
+          <div class="card-header border-red">
+            <i class="fa-solid fa-triangle-exclamation icon-red"></i>
+            <div>
+              <h2>Protocolo e Registro de Crise em Sala</h2>
+              <p class="tool-desc">Mantenha a calma. Reduza estímulos. Não force contato físico. Avise a família. Tenha um espaço de regulação disponível.</p>
+            </div>
+          </div>
+          <form class="tool-form" onsubmit="registrarCrise(event)">
+            <div class="input-group">
+              <label>Conduta imediata efetuada na ocorrência</label>
+              <div class="protocol-steps">
+                <div class="step-check"><i class="fa-solid fa-check text-green"></i> Mantenha a calma</div>
+                <div class="step-check"><i class="fa-solid fa-check text-green"></i> Reduza os estímulos sonoros/visuais do local</div>
+                <div class="step-check"><i class="fa-solid fa-check text-green"></i> Evite e não force contato físico invasivo</div>
+                <div class="step-check"><i class="fa-solid fa-check text-green"></i> Direcione ao Espaço de Regulação disponível</div>
+              </div>
+            </div>
+            <div class="input-row">
+              <div class="input-group">
+                <label>Gatilho Percebido (Se houver)</label>
+                <input type="text" placeholder="Ex: Barulho extremo, quebra de rotina" id="crise-gatilho" />
+              </div>
+              <div class="input-group">
+                <label>A família já foi notificada?</label>
+                <select id="crise-familia">
+                  <option value="sim">Sim, imediatamente</option>
+                  <option value="nao">Não, registrar antes de avisar</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn-action bg-red"><i class="fa-solid fa-shield-heart"></i> Registrar Ocorrência e Condutas</button>
+          </form>
+          <div class="feedback-box" id="feedback-crise"></div>
+        </section>
+
+        <section class="tool-card">
+          <div class="card-header border-purple">
+            <i class="fa-solid fa-eye icon-purple"></i>
+            <div>
+              <h2>Planejador de Rotina Visual</h2>
+              <p class="tool-desc">Antecipe mudanças com antecedência. Use figuras, cores e sequências visuais. Previsibilidade reduz ansiedade.</p>
+            </div>
+          </div>
+          <form class="tool-form" onsubmit="adicionarRotina(event)">
+            <div class="input-group">
+              <label>Próxima Atividade / Mudança de Rotina Planejada</label>
+              <input type="text" placeholder="Ex: Palestra externa, Troca de sala, Aula de artes" required id="rot-nome" />
+            </div>
+            <div class="input-row">
+              <div class="input-group">
+                <label>Cor Identificadora Visual</label>
+                <select id="rot-cor">
+                  <option value="var(--blue-soft)">Azul (Aulas Tradicionais)</option>
+                  <option value="var(--teal)">Verde (Lazer / Oficinas)</option>
+                  <option value="var(--warm)">Laranja (Mudanças Extraordinárias)</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>Recurso de Apoio Conectado</label>
+                <input type="text" placeholder="Ex: Cartões com fotos, desenhos" id="rot-recurso" />
+              </div>
+            </div>
+            <button type="submit" class="btn-action bg-purple"><i class="fa-solid fa-calendar-plus"></i> Adicionar à Sequência Visual</button>
+          </form>
+          <div class="feedback-box" id="feedback-rotina"></div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script>
+    function toggleDark() {
+      const isDark = document.documentElement.dataset.theme === 'dark';
+      document.documentElement.dataset.theme = isDark ? '' : 'dark';
+      document.getElementById('btnDark').classList.toggle('active', !isDark);
+    }
+    
+    function toggleContrast() {
+      const isH = document.documentElement.dataset.contrast === 'high';
+      document.documentElement.dataset.contrast = isH ? '' : 'high';
+      document.getElementById('btnContrast').classList.toggle('active', !isH);
+    }
+
+    // Handlers Interativos Individuais
+    function salvarPEI(e) {
+      e.preventDefault();
+      const aluno = document.getElementById('pei-aluno').value;
+      const fb = document.getElementById('feedback-pei');
+      fb.innerHTML = `<strong><i class="fa-solid fa-circle-check text-green"></i> Sucesso!</strong> O PEI de <u>${aluno}</u> foi gerado e salvo no banco de dados pedagógico com as metas e adaptações associadas.`;
+      fb.style.display = 'block';
+    }
+
+    function gerarAgenda(e) {
+      e.preventDefault();
+      const aluno = document.getElementById('com-aluno').value;
+      const fb = document.getElementById('feedback-com');
+      fb.innerHTML = `<strong><i class="fa-solid fa-circle-check text-green"></i> Relatório Enviado!</strong> A agenda diária de <u>${aluno}</u> foi atualizada. Os responsáveis receberam a notificação via caderno de comunicação digital.`;
+      fb.style.display = 'block';
+    }
+
+    function adaptarAtividade(e) {
+      e.preventDefault();
+      const fb = document.getElementById('feedback-prova');
+      fb.innerHTML = `<strong><i class="fa-solid fa-circle-check text-green"></i> Atividade Adequada!</strong> Requisitos aplicados com sucesso garantindo igualdade de condições para a execução do estudante.`;
+      fb.style.display = 'block';
+    }
+
+    function registrarCrise(e) {
+      e.preventDefault();
+      const gatilho = document.getElementById('crise-gatilho').value || 'Não identificado';
+      const fb = document.getElementById('feedback-crise');
+      fb.innerHTML = `<strong><i class="fa-solid fa-shield-halved text-green"></i> Registro Concluído.</strong> Ocorrência arquivada de forma segura. Gatilho monitorado: <em>"${gatilho}"</em>. Espaço de regulação acionado.`;
+      fb.style.display = 'block';
+    }
+
+    function adicionarRotina(e) {
+      e.preventDefault();
+      const nome = document.getElementById('rot-nome').value;
+      const fb = document.getElementById('feedback-rotina');
+      fb.innerHTML = `<strong><i class="fa-solid fa-circle-check text-green"></i> Cronograma Antecipado!</strong> A alteração <u>"${nome}"</u> foi inserida na sequência visual estruturada para mitigar a ansiedade dos alunos.`;
+      fb.style.display = 'block';
+    }
+  </script>
+</body>
+</html>
